@@ -8,14 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
     <title>Product Title</title>
 </head>
 
 <body>
 
 
-<!--NAVBAR GOES HERE-->
+    <!--NAVBAR GOES HERE-->
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -86,102 +86,41 @@
         </div>
     </nav>
 
-<!--PRODUCT DETAILS GOES HERE-->
-
-<section class="py-10 mt-10">
-    <div id="dispalyProductDetails" class="container mx-5 px-4 sm:px-6 lg:px-8">
-
-    </div>
-</section>
+    <h2>Hello Cart</h2>
 
 
-<!-- User Feedback Section -->
-<section class="bg-white border-t border-gray-200">
-    <div class="conntainer py-10 mt-10 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">User Feedback</h2>
 
-        <!-- Feedback Card List -->
-        <div class="space-y-6">
-            <!-- Single Feedback Card -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                <div class="flex items-center space-x-4 mb-2">
-                    <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/50" alt="User Avatar">
-                    <div>
-                        <p class="text-gray-800 font-semibold">Jane Doe</p>
-                        <div class="flex items-center text-yellow-400">
-                            <!-- Rating Stars -->
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p class="text-sm text-gray-500">Reviewed on: October 5, 2024</p>
-                    </div>
-                </div>
-                <p class="text-gray-700 leading-relaxed">
-                    This product is fantastic! The quality is great, and it arrived exactly as described. Highly
-                    recommended for anyone looking for a reliable product!
-                </p>
-            </div>
 
-            <!-- Repeat for multiple feedback cards -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                <div class="flex items-center space-x-4 mb-2">
-                    <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/50" alt="User Avatar">
-                    <div>
-                        <p class="text-gray-800 font-semibold">John Smith</p>
-                        <div class="flex items-center text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <p class="text-sm text-gray-500">Reviewed on: October 10, 2024</p>
-                    </div>
-                </div>
-                <p class="text-gray-700 leading-relaxed">
-                    Good quality, but the shipping took a bit longer than expected. Still, I’m happy with the purchase
-                    overall.
-                </p>
-            </div>
 
-            <!-- Add more feedback cards as needed -->
+    <!--FOOTER GOES HERE-->
+    <footer class="bg-white rounded-lg shadow m-4 mt-10 dark:bg-gray-800">
+        <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://flowbite.com/"
+                    class="hover:underline">X Watch™</a>. All Rights Reserved.
+            </span>
+            <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
         </div>
-    </div>
-</section>
+    </footer>
 
 
 
-<!--FOOTER GOES HERE-->
-<footer class="bg-white rounded-lg shadow m-4 mt-10 dark:bg-gray-800">
-    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://flowbite.com/"
-                class="hover:underline">X Watch™</a>. All Rights Reserved.
-        </span>
-        <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-            <li>
-                <a href="#" class="hover:underline me-4 md:me-6">About</a>
-            </li>
-            <li>
-                <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-            </li>
-            <li>
-                <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-            </li>
-            <li>
-                <a href="#" class="hover:underline">Contact</a>
-            </li>
-        </ul>
-    </div>
-</footer>
+    <script type="module" src="js/cart.js"></script>
+    <script type="module" src="js/header.js"></script>
 
-
-
-<script src="js/productDetails.js"></script>
-<script type="module" src="js/header.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
 
 </html>

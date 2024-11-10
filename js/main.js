@@ -3,7 +3,7 @@ let loggedInHtml = `
                             class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                             id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                             <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" src="https://avatars.githubusercontent.com/u/103895201?v=4" alt="user photo">
+                            <img class="w-8 h-8 rounded-full" src="https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png" alt="user photo">
                         </button>
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                             id="user-dropdown">
@@ -45,7 +45,7 @@ let loggedOutHtml = `
                             class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                             id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                             <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" src="https://avatars.githubusercontent.com/u/103895201?v=4" alt="user photo">
+                            <img class="w-8 h-8 rounded-full" src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg" alt="user photo">
                         </button>
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                             id="user-dropdown">
@@ -86,10 +86,11 @@ let loggedOutHtml = `
                         </div>
 `
 
-// Check User isAuthenticated
-document.addEventListener("DOMContentLoaded", checkAuthentication)
 
-function checkAuthentication(){
+// Check User isAuthenticated
+// document.addEventListener("DOMContentLoaded", checkAuthentication)
+
+export function checkAuthentication(){
 
     let signUpUserHtml = document.getElementsByClassName("profileWithLogout");
     let userDetails = JSON.parse(localStorage.getItem("userDetails"))
@@ -103,8 +104,62 @@ function checkAuthentication(){
 
 
 
+// USER REGISTRATION
+// const signUpForm = document.getElementById("signup-form")
 
-function userLogin(){
+// signUpForm.addEventListener('submit', handleSignUpSubmit)
+// console.log(JSON.parse(localStorage.getItem("userDetails")))
+
+export function handleSignUpSubmit(event){
+    event.preventDefault()
+    const signUpForm = document.getElementById("signup-form")
+    let pass1 = signUpForm.password.value
+    let pass2 = signUpForm['confirm-password'].value
+
+    if (passwordMatchValidation(pass1,pass2)) {
+        let user = {
+            userName: signUpForm.username.value,
+            email: signUpForm.email.value,
+            password: pass1,
+            isLoggedIn: true
+        }
+        // console.log(user)
+        localStorage.setItem("userDetails", JSON.stringify(user))
+        console.log("Successfully Registered")
+        window.location.href = "/";
+        
+        // console.log(localStorage.getItem("userDetails"))
+    } else {
+        alert("Password Didn't Match")
+    }
+
+}
+
+function passwordMatchValidation(pass1, pass2){
+    return pass1 === pass2
+}
+
+
+
+// USER LOGOUT
+
+export function userLogOut(){
+    let userDetails = JSON.parse(localStorage.getItem("userDetails"))
+    console.log(userDetails)
+    if (userDetails && userDetails.userName) {
+        userDetails.isLoggedIn = false
+        localStorage.setItem("userDetails", JSON.stringify(userDetails));
+        console.log("User successfully Logout")
+        window.location.href = "/login.html";
+        // window.location.reload();
+        
+    } else {
+        console.log("Can not proces Logout")
+    }
+}
+
+export function userLogin(event){
+    event.preventDefault()
     const loginForm = document.getElementById("login-form")
     const userDetails = JSON.parse(localStorage.getItem("userDetails"))
     console.log(loginForm.username)
@@ -124,17 +179,30 @@ function userLogin(){
     }
 }
 
-function userLogOut(){
-    let userDetails = JSON.parse(localStorage.getItem("userDetails"))
-    console.log(userDetails)
-    if (userDetails && userDetails.userName) {
-        userDetails.isLoggedIn = false
-        localStorage.setItem("userDetails", JSON.stringify(userDetails));
-        console.log("User successfully Logout")
-        // window.location.href = "/login.html";
-        window.location.href = "/login.html"
-        
+
+export function isAuthenticated(){
+    let textUserData = localStorage.getItem("userDetails");
+    if (textUserData) {
+
+        let userObject = JSON.parse(textUserData);
+        if (userObject.isLoggedIn) {
+            return true
+        } else {
+            console.log("User Not Loged in")
+        }
+
     } else {
-        console.log("Can not proces Logout")
+        console.log("No user Find")
+
+    }
+}
+
+export function getUserDetails(){
+    let textUserData = localStorage.getItem("userDetails");
+    if (textUserData) {
+        let userObject = JSON.parse(textUserData);
+        return userObject
+    } else {
+        return null
     }
 }
