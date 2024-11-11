@@ -1,4 +1,6 @@
+import {addToCart} from "./main.js"
 
+window.addToCart = addToCart;
 
 let products = [
     {
@@ -176,7 +178,7 @@ function displayProductWithDetails(){
                 <!-- Quantity and Add to Cart Button -->
                 <div class="flex items-center space-x-4">
                     <input type="number" min="1" value="1" class="border border-gray-300 p-2 rounded w-16 text-center">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg">
+                    <button onclick="addToCart(${productIndex})" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg">
                         Add to Cart
                     </button>
                 </div>

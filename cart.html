@@ -86,7 +86,73 @@
         </div>
     </nav>
 
-    <h2>Hello Cart</h2>
+
+
+    <!--CART DETAILS GOES HERE-->
+    <div class="container mx-auto p-6">
+        <h1 class="text-2xl font-bold text-gray-700 mb-6">Your Cart</h1>
+    
+        <!-- Cart Items Container -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <!-- Sample Product Item -->
+            <div id="cart-items" class="space-y-6">
+                
+                <!-- Individual Cart Item -->
+                <div class="flex items-center space-x-6 border-b pb-6">
+                    <!-- Product Image -->
+                    <img src="https://via.placeholder.com/100" alt="Product Image" class="w-20 h-20 rounded object-cover">
+    
+                    <!-- Product Details -->
+                    <div class="flex-grow">
+                        <h2 class="text-lg font-semibold text-gray-800">Product Name</h2>
+                        <p class="text-gray-600">Product description goes here.</p>
+                    </div>
+    
+                    <!-- Quantity Control & Price -->
+                    <div class="flex items-center space-x-4">
+                        <button onclick="increaseQuantity('quantity-1')" class="text-gray-600 hover:text-gray-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                        </button>
+                        <p id="quantity-1" class="text-gray-900 font-medium">1</p>
+                        <button onclick="increaseQuantity('quantity-1')" class="text-gray-600 hover:text-gray-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16" />
+                            </svg>
+                        </button>
+                    </div>
+    
+                    <!-- Product Price -->
+                    <p class="text-gray-900 font-semibold">$25.00</p>
+    
+                    <!-- Remove Button -->
+                    <button onclick="removeCartItem(id)" class="text-red-500 hover:text-red-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Repeat the above block for each product in the cart -->
+            </div>
+    
+            <!-- Cart Total -->
+            <div class="flex justify-between items-center pt-6 border-t mt-6">
+                <h2 class="text-xl font-bold text-gray-800">Total:</h2>
+                <p id="cart-total" class="text-xl font-bold text-gray-900">$75.00</p>
+            </div>
+    
+            <!-- Checkout Button -->
+            <div class="flex justify-end mt-6">
+                <button class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
 
 
 
