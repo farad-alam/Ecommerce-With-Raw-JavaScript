@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", displayCart)
 function displayCart(){
 
     let cartItems = isAvilableCartItem()
-    console.log(cartItems)
+    // console.log(cartItems)
     let productHtml;
     if (cartItems) {
         productHtml = genarateProductHTMLForCart(cartItems)
@@ -65,7 +65,7 @@ function displayCart(){
 }
 
 
-
+// check the cart item is avilable or not and then return cart
 function isAvilableCartItem(){
     if (isAuthenticated) {
         let userObject = getUserDetails()
@@ -85,8 +85,8 @@ function isAvilableCartItem(){
 function genarateProductHTMLForCart(cartItems){
      let displayProductsWithHTML = ''
      cartItems.forEach((item, index) =>{
-        let product = products[item.id]
-        console.log(product)
+        let product = products[item.productId]
+        // console.log(product)
         displayProductsWithHTML += `<div class="flex items-center space-x-6 border-b pb-6">
                                                 <!-- Product Image -->
                                                 <img src="${product.image}" alt="Product Image" class="w-20 h-20 rounded object-cover">
@@ -117,7 +117,7 @@ function genarateProductHTMLForCart(cartItems){
                                                 <p class="text-gray-900 font-semibold">$${product.price}</p>
                                 
                                                 <!-- Remove Button -->
-                                                <button onclick="removeCartItem(${product.index})" class="text-red-500 hover:text-red-700">
+                                                <button onclick="removeCartItem(${index})" class="text-red-500 hover:text-red-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                         class="w-6 h-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -135,5 +135,22 @@ function genarateProductHTMLForCart(cartItems){
 }
 
 function removeCartItem(id){
+    if (isAuthenticated()) {
+        let cartItems = isAvilableCartItem()
+        cartItems.splice(id, 1)
+        console.log("item remove successfully!")
+        let userObject = getUserDetails()
+        userObject.cartItems = cartItems;
+        localStorage.setItem("userDetails", JSON.stringify(userObject))
 
+        let productHtml = genarateProductHTMLForCart(cartItems)
+        const displayProductSection = document.getElementById("cart-items")
+
+        displayProductSection.innerHTML = productHtml
+
+        // displayProductSection.insertAdjacentHTML("beforeend", productHtml)
+
+    }
 }
+
+window.removeCartItem = removeCartItem;
