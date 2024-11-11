@@ -54,7 +54,7 @@ function displayCart(){
     if (cartItems) {
         renderCartProducts(cartItems)
     } else {
-        productHtml ="No product to show"
+        console.log("No product to show")
     }
 
 
@@ -193,7 +193,13 @@ function increaseQuantity(index){
 
     let cartItems = isAvilableCartItem()
     if (cartItems) {
-        cartItems[index].quantity += 1
+        let quantity = cartItems[index].quantity 
+        quantity += 1
+        cartItems[index].quantity = quantity
+        let userObject = getUserDetails()
+        userObject.cartItems = cartItems
+        localStorage.setItem("userDetails", JSON.stringify(userObject))
+        console.log(cartItems, quantity)
         renderCartProducts(cartItems)
     }
 
