@@ -406,7 +406,7 @@ export let products = [
         "description": "Trendy camouflage watch for kids who love adventure.",
         "features": ["Camouflage design", "Digital display", "Shock-resistant", "Water-resistant"],
         "image": "https://m.media-amazon.com/images/I/81eBExHODxL._AC_SY675_.jpg",
-        "price": 34.99,
+        "price": 10,
         "review": 55,
         "rating": 4.4,
         "isAvilable": true,
@@ -520,10 +520,12 @@ export function addToCart(id){
     if (isAuthenticated()) {
         let userObject = getUserDetails()
 
+        // console.log(getProductsById(id))
+
         let newCartProduct = {
             productId: id,
             quantity: 1,
-            cartPrice: getProductsById(id).price * 1,
+            cartPrice: getProductsById(id).price,
         }
 
         if (!userObject.cartItems) {
@@ -547,6 +549,7 @@ export function addToCart(id){
 }
 
 function getProductsById(id){
+    // console.log(products[id])
     return products[id]
 }
 

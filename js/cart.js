@@ -110,7 +110,7 @@ function genarateProductHTMLForCart(cartItems){
                                                 </div>
                                 
                                                 <!-- Product Price -->
-                                                <p class="text-gray-900 font-semibold">$${product.price}</p>
+                                                <p class="text-gray-900 font-semibold">$${item.cartPrice}</p>
                                 
                                                 <!-- Remove Button -->
                                                 <button onclick="removeCartItem(${index})" class="text-red-500 hover:text-red-700">
@@ -139,10 +139,18 @@ function removeCartItem(id){
         userObject.cartItems = cartItems;
         localStorage.setItem("userDetails", JSON.stringify(userObject))
 
-        let productHtml = genarateProductHTMLForCart(cartItems)
+        
         const displayProductSection = document.getElementById("cart-items")
+        if (cartItems.length != 0) {
+            console.log("item have in cart")
+            let productHtml = genarateProductHTMLForCart(cartItems)
+            displayProductSection.innerHTML = productHtml
+        } else {
+            console.log("cart empty")
+            displayProductSection.innerHTML = noDataAvilableHTML()
+        }
 
-        displayProductSection.innerHTML = productHtml
+        
 
         // displayProductSection.insertAdjacentHTML("beforeend", productHtml)
 
@@ -196,6 +204,8 @@ function increaseQuantity(index){
         let quantity = cartItems[index].quantity 
         quantity += 1
         cartItems[index].quantity = quantity
+        cartItems[index].cartPrice = parseFloat((quantity * (products[cartItems[index].productId]).price).toFixed(2))
+        // console.log(cartItems[index].cartPrice)
         let userObject = getUserDetails()
         userObject.cartItems = cartItems
         localStorage.setItem("userDetails", JSON.stringify(userObject))
