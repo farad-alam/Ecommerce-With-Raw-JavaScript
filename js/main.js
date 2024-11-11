@@ -93,7 +93,7 @@ let navBar = `
             <div id="profileWithLogout"
                 class="flex items-center space-x-4 md:order-2 rtl:space-x-reverse profileWithLogout">
                 <!-- Cart Icon with Notification -->
-                <a href="#" class="relative">
+                <a href="/cart.html" class="relative">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-800 dark:text-white" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -519,23 +519,47 @@ function filterProductsBasedOnCategories(products, categories){
 export function addToCart(id){
     if (isAuthenticated()) {
         let userObject = getUserDetails()
-        // userObject.cartItems.push(id) ? userObject.cartItems : userObject['cartItems'] = [id]
+
+        let newCartProduct = {
+            productId: id,
+            quantity: 1,
+            cartPrice: getProductsById(id).price * 1,
+        }
+
         if (!userObject.cartItems) {
             userObject.cartItems = [];
         }
+        
         // Check if the item is already in the array
-        if (!userObject.cartItems.includes(id)) {
-            userObject.cartItems.push(id);
+        if (!checkProductIsInCart(id)) {
+            userObject.cartItems.push(newCartProduct);
+            console.log("New Item Added to the car")
         } else {
             console.log("Item is already in the cart");
         }
 
         localStorage.setItem("userDetails", JSON.stringify(userObject))
-        console.log("Can add product to the cart", userObject)
+        
     } else {
         console.log("Can Not Add product to the cart Login First")
     }
 
+}
+
+function getProductsById(id){
+    return products[id]
+}
+
+function checkProductIsInCart(id) {
+    let userObject = getUserDetails();
+    let cartItems = userObject.cartItems;
+    
+    if (cartItems) {
+        return cartItems.some(product => product.productId === id);
+    } else {
+        console.log("Your cart is empty")
+    }
+    
 }
 
 
