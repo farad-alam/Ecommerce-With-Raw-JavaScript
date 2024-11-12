@@ -1,6 +1,6 @@
 let loggedInHtml = `
 <!-- Cart Icon with Notification -->
-                <a href="/cart.html" class="relative">
+                <a href="cart.html" class="relative">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-800 dark:text-white" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -18,8 +18,8 @@ let loggedInHtml = `
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                             id="user-dropdown">
                             <div class="px-4 py-3">
-                                <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+                                <span class="block text-sm text-gray-900 dark:text-white">{username}</span>
+                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{email}</span>
                             </div>
                             <ul class="py-2" aria-labelledby="user-menu-button">
                                 <li>
@@ -52,7 +52,7 @@ let loggedInHtml = `
 `
 let loggedOutHtml = `
                          <!-- Cart Icon with Notification -->
-                        <a href="/cart.html" class="relative">
+                        <a href="cart.html" class="relative">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-800 dark:text-white" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -70,17 +70,17 @@ let loggedOutHtml = `
                         <!-- Sign Up and Login Buttons -->
                         <div id="signupLoginButtons">
                         
-                            <a href="/signup.html"
+                            <a href="signup.html"
                                 class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-blue-700 rounded-lg hover:bg-blue-700 hover:text-white focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:text-white dark:border-blue-600 dark:hover:bg-blue-700">Sign
                                 Up</a>
-                            <a href="/login.html"
+                            <a href="login.html"
                                 class="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700">Login</a>
                         
                         
                         </div>
 `
 let navBar = `
-            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="images/watch-logo.jfif" class="h-8" alt="X Watch Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">X Watch</span>
             </a>
@@ -99,7 +99,7 @@ let navBar = `
                 <ul
                     class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
-                        <a href="/"
+                        <a href="index.html"
                             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a>
                     </li>
                     <!-- Dropdown Categories Menu -->
@@ -117,13 +117,13 @@ let navBar = `
                         <!-- Categories Dropdown Menu -->
                         <ul
                             class="absolute left-0 hidden pt-1 group-hover:block w-40 bg-white shadow-md rounded-lg dark:bg-gray-800">
-                            <li><a href="/categories.html?category=men"
+                            <li><a href="categories.html?category=men"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Men</a>
                             </li>
-                            <li><a href="/categories.html?category=women"
+                            <li><a href="categories.html?category=women"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Women</a>
                             </li>
-                            <li><a href="/categories.html?category=kids"
+                            <li><a href="categories.html?category=kids"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Kids</a>
                             </li>
                         </ul>
@@ -155,7 +155,9 @@ export function checkAuthentication(){
     let signUpUserHtml = document.getElementsByClassName("profileWithLogout");
     let userDetails = JSON.parse(localStorage.getItem("userDetails"))
 
-    if (userDetails && userDetails.isLoggedIn) {      
+    if (userDetails && userDetails.isLoggedIn) {   
+        loggedInHtml = loggedInHtml.replace('{username}', userDetails.userName)
+        loggedInHtml = loggedInHtml.replace("{email}", userDetails.email)   
         signUpUserHtml[0].insertAdjacentHTML("beforeend", loggedInHtml)
         pushCartCounttoCartIcaon()
     } else {
@@ -446,12 +448,12 @@ function genarateProductHTMLFromProductList(productList){
     productList.forEach((product, index) => {
             displayProductsWithHTML += `
             <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <a href="/productDetails.html?productIndex=${index}">
+                        <a href="productDetails.html?productIndex=${index}">
                             <img class="p-8 h-64 mx-auto rounded-t-lg" src="${product.image}"
                                 alt="product image" />
                         </a>
                         <div class="px-5 pb-5">
-                            <a  href="/productDetails.html?productIndex=${index}">
+                            <a  href="productDetails.html?productIndex=${index}">
                                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${product.title}</h5>
                             </a>
                             <div class="flex items-center mt-2.5 mb-5">

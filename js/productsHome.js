@@ -61,12 +61,12 @@ function attachProductToHomePage(){
     products.forEach((product, index, array) => {
             displayProductsWithHTML += `
             <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <a href="/productDetails.html?productIndex=${index}">
+                        <a href="productDetails.html?productIndex=${index}">
                             <img class="p-8 h-64 mx-auto rounded-t-lg" src="${product.image}"
                                 alt="product image" />
                         </a>
                         <div class="px-5 pb-5">
-                            <a  href="/productDetails.html?productIndex=${index}">
+                            <a  href="productDetails.html?productIndex=${index}">
                                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${product.title}</h5>
                             </a>
                             <div class="flex items-center mt-2.5 mb-5">
