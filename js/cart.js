@@ -1,6 +1,6 @@
 import {addToCart, isAuthenticated, 
     getUserDetails, products, isAvilableCartItem,
-    cartTotalPrice, pushCartToalToFronEnd
+    cartTotalPrice, pushCartToalToFronEnd,showNotification
  } from "./main.js"
 
 
@@ -58,6 +58,7 @@ function displayCart(){
     if (cartItems) {
         renderCartProducts(cartItems)
     } else {
+        showNotification("your cart is Empty")
         console.log("No product to show")
     }
 
@@ -126,7 +127,8 @@ function removeCartItem(id){
 
         let cartItems = isAvilableCartItem()
         cartItems.splice(id, 1)
-        console.log("item remove successfully!")
+        showNotification("Remove The Item Successfully", "info")
+        // console.log("item remove successfully!")
 
         let userObject = getUserDetails()
         userObject.cartItems = cartItems;
@@ -136,8 +138,6 @@ function removeCartItem(id){
         // renderCartProducts(userObject.cartItems)
 
         localStorage.setItem("userDetails", JSON.stringify(userObject))
-        
-        
 
         if (cartItems.length != 0) {
             renderCartProducts(userObject.cartItems)
@@ -215,7 +215,7 @@ function cartProductQuantityChange(index, value){
         userObject.cartTotal = cartTotalPrice(cartItems)
         console.log(userObject)
         localStorage.setItem("userDetails", JSON.stringify(userObject))
-        console.log(cartItems, quantity)
+        // console.log(cartItems, quantity)
         renderCartProducts(cartItems)
     }
 

@@ -1,5 +1,15 @@
 let loggedInHtml = `
-<button type="button"
+<!-- Cart Icon with Notification -->
+                <a href="/cart.html" class="relative">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-800 dark:text-white" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l1 14a1 1 0 001 1h13a1 1 0 001-1l1-14h2M16 9a4 4 0 11-8 0m8 0a4 4 0 00-8 0" />
+                    </svg> 
+                    <span id="cart-count" class="absolute top-0 right-0 flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs font-semibold"></span>
+
+                </a>
+                        <button type="button"
                             class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                             id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                             <span class="sr-only">Open user menu</span>
@@ -41,38 +51,22 @@ let loggedInHtml = `
                         </div>
 `
 let loggedOutHtml = `
-<button type="button"
+                         <!-- Cart Icon with Notification -->
+                        <a href="/cart.html" class="relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-800 dark:text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l1 14a1 1 0 001 1h13a1 1 0 001-1l1-14h2M16 9a4 4 0 11-8 0m8 0a4 4 0 00-8 0" />
+                            </svg> 
+                        </a>
+
+                        <button type="button"
                             class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                             id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                             <span class="sr-only">Open user menu</span>
                             <img class="w-8 h-8 rounded-full" src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg" alt="user photo">
                         </button>
-                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-                            id="user-dropdown">
-                            <div class="px-4 py-3">
-                                <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
-                            </div>
-                            <ul class="py-2" aria-labelledby="user-menu-button">
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                                        out</a>
-                                </li>
-                            </ul>
-                        </div>
+
                         <!-- Sign Up and Login Buttons -->
                         <div id="signupLoginButtons">
                         
@@ -92,16 +86,9 @@ let navBar = `
             </a>
             <div id="profileWithLogout"
                 class="flex items-center space-x-4 md:order-2 rtl:space-x-reverse profileWithLogout">
+
                 <!-- Cart Icon with Notification -->
-                <a href="/cart.html" class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-800 dark:text-white" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 3h2l1 14a1 1 0 001 1h13a1 1 0 001-1l1-14h2M16 9a4 4 0 11-8 0m8 0a4 4 0 00-8 0" />
-                    </svg>
-                    <span
-                        class="absolute top-0 right-0 flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs font-semibold">3</span>
-                </a>
+
     
                 <!-- User Profile Menu -->
     
@@ -152,7 +139,10 @@ let navBar = `
                 </ul>
             </div>
 `
+// `
+// <span class="absolute top-0 right-0 flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs font-semibold"></span>
 
+// `
 // Check User isAuthenticated
 // document.addEventListener("DOMContentLoaded", checkAuthentication)
 
@@ -167,6 +157,7 @@ export function checkAuthentication(){
 
     if (userDetails && userDetails.isLoggedIn) {      
         signUpUserHtml[0].insertAdjacentHTML("beforeend", loggedInHtml)
+        pushCartCounttoCartIcaon()
     } else {
         signUpUserHtml[0].insertAdjacentHTML("beforeend", loggedOutHtml)
     }
@@ -192,12 +183,14 @@ export function handleSignUpSubmit(event){
         }
         // console.log(user)
         localStorage.setItem("userDetails", JSON.stringify(user))
-        console.log("Successfully Registered")
+        showNotification(`Hi ${user.userName}, You have successfully registered an account!`,"success")
+        // console.log("Successfully Registered")
         window.location.href = "/";
         
         // console.log(localStorage.getItem("userDetails"))
     } else {
-        alert("Password Didn't Match")
+        showNotification("Your Passwords Doesn't Match","error")
+        // alert("Password Didn't Match")
     }
 
 }
@@ -216,11 +209,13 @@ export function userLogOut(){
     if (userDetails && userDetails.userName) {
         userDetails.isLoggedIn = false
         localStorage.setItem("userDetails", JSON.stringify(userDetails));
-        console.log("User successfully Logout")
+        showNotification("You have logged Out")
+        // console.log("User successfully Logout")
         window.location.href = "/login.html";
         // window.location.reload();
         
     } else {
+        showNotification("can not process your logout request",'error')
         console.log("Can not proces Logout")
     }
 }
@@ -229,21 +224,24 @@ export function userLogin(event){
     event.preventDefault()
     const loginForm = document.getElementById("login-form")
     const userDetails = JSON.parse(localStorage.getItem("userDetails"))
-    console.log(loginForm.username.value)
-    console.log(userDetails)
+    // console.log(loginForm.username.value)
+    // console.log(userDetails)
 
     if (userDetails && userDetails.userName){
 
         if (userDetails.userName === loginForm.username.value && userDetails.password === loginForm.password.value) {
             userDetails.isLoggedIn = true
             localStorage.setItem("userDetails", JSON.stringify(userDetails))
-            console.log("user successfully logged in")
+            showNotification(`Hi ${userDetails.userName}, yOU HAVE SUCCESSFULLY LOGGED IN`,'success')
+            // console.log("user successfully logged in")
             window.location.href = "/"
         } else {
-            console.log("Please enter Correct Email & Password")
+            showNotification("Please enter Correct Email & Password",'error')
+            // console.log("Please enter Correct Email & Password")
         }
     } else {
-        console.log("User with these username did not exist")
+        showNotification("User with these username did not exist",'error')
+        // console.log("User with these username did not exist")
     }
 }
 
@@ -536,16 +534,20 @@ export function addToCart(id){
         if (!checkProductIsInCart(id)) {
             userObject.cartItems.push(newCartProduct);
             userObject.cartTotal = cartTotalPrice(userObject.cartItems)
-            console.log("New Item Added to the car")
+            // console.log("New Item Added to the car")
             showNotification("New Products Added to the cart", "info")
+            
         } else {
-            console.log("Item is already in the cart");
+            showNotification("The item already in the cart", 'info')
+            // console.log("Item is already in the cart");
         }
 
         localStorage.setItem("userDetails", JSON.stringify(userObject))
+        pushCartCounttoCartIcaon()
         
     } else {
-        console.log("Can Not Add product to the cart Login First")
+        showNotification("Can Not Add product to the cart Login First",'info')
+        // console.log("Can Not Add product to the cart Login First")
     }
 
 }
@@ -592,8 +594,6 @@ export function isAvilableCartItem(){
     }
 }
 
-
-
 export function pushCartToalToFronEnd(cartTotal){
     let cartTotalDiv =  document.getElementById("cart-total-div")
     if (cartTotal != 0) {
@@ -615,6 +615,11 @@ export function pushCartToalToFronEnd(cartTotal){
     }
     
 
+}
+
+export function pushCartCounttoCartIcaon(){
+
+    document.getElementById("cart-count").innerHTML = isAvilableCartItem().length
 }
 
 // <!-- Notification JavaScript -->
@@ -655,6 +660,28 @@ function hideNotification() {
     notification.classList.add("hidden");
 }
 
+export function pushNotificationHtml(){
+
+const notificationDiv = document.createElement('div');
+    notificationDiv.innerHTML = `
+        <div id="notification"
+            class="fixed top-4 right-4 hidden max-w-xs p-4 rounded-md shadow-md bg-opacity-95 text-white transition-all transform duration-300 ease-in-out">
+            <div class="flex items-center space-x-2">
+                <span id="notification-icon" class="w-6 h-6"></span>
+                <p id="notification-message" class="text-sm font-medium"></p>
+                <button onclick="hideNotification()"
+                    class="ml-auto bg-transparent hover:bg-gray-200 hover:text-gray-800 rounded-full p-1">
+                    ✕
+                </button>
+            </div>
+        </div>
+    `;
+    // Find the footer and insert the notification above it
+    const footer = document.querySelector('footer');
+    if (footer) {
+        footer.parentNode.insertBefore(notificationDiv, footer);
+    }
+}
 
 
 

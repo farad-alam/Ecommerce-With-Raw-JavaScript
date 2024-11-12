@@ -1,13 +1,14 @@
 import {checkAuthentication, 
     userLogOut, userLogin, insertNavBar,
     isAuthenticated, showNotification,
-    getUserDetails, 
+    getUserDetails, pushNotificationHtml,
     handleSignUpSubmit,
     } from "./main.js"
 
 document.addEventListener("DOMContentLoaded", insertNavBar)
 
 document.addEventListener("DOMContentLoaded", checkAuthentication)
+document.addEventListener("DOMContentLoaded", pushNotificationHtml)
 
 
 window.userLogOut = userLogOut;
