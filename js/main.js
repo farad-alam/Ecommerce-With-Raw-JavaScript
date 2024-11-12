@@ -535,6 +535,7 @@ export function addToCart(id){
         // Check if the item is already in the array
         if (!checkProductIsInCart(id)) {
             userObject.cartItems.push(newCartProduct);
+            userObject.cartTotal = cartTotalPrice(userObject.cartItems)
             console.log("New Item Added to the car")
         } else {
             console.log("Item is already in the cart");
@@ -546,6 +547,16 @@ export function addToCart(id){
         console.log("Can Not Add product to the cart Login First")
     }
 
+}
+
+export function cartTotalPrice(cartItems){
+    // const cartItems = isAvilableCartItem()
+    let totalCartPrice = 0
+    for (const items of cartItems) {
+        console.log(items.cartPrice)
+        totalCartPrice += items.cartPrice
+    }
+    return parseFloat(totalCartPrice.toFixed(2))
 }
 
 function getProductsById(id){
@@ -565,5 +576,44 @@ function checkProductIsInCart(id) {
     
 }
 
+export function isAvilableCartItem(){
+    if (isAuthenticated) {
+        let userObject = getUserDetails()
+        if (userObject.cartItems) {
+            return userObject.cartItems
+        } else {
+            return false
+        }
+        
+    } else {
+        console.log("You need to login to see cart item")
+    
+    }
+}
+
+
+
+export function pushCartToalToFronEnd(cartTotal){
+    let cartTotalDiv =  document.getElementById("cart-total-div")
+    if (cartTotal != 0) {
+        cartTotalDiv.innerHTML = `
+                <div id="cart-total" class="flex justify-between items-center pt-6 border-t mt-6">
+                    <h2 class="text-xl font-bold text-gray-800">Total:</h2>
+                    <p id="cart-total" class="text-xl font-bold text-gray-900">${cartTotal}</p>
+                </div>
+                
+                <!-- Checkout Button -->
+                <div class="flex justify-end mt-6">
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700">
+                        Proceed to Checkout
+                    </button>
+                </div>
+    `
+    } else {
+        cartTotalDiv.innerHTML = ''
+    }
+    
+
+}
 
 

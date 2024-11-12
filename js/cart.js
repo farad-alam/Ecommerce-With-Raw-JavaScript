@@ -1,4 +1,7 @@
-import {addToCart, isAuthenticated, getUserDetails, products} from "./main.js"
+import {addToCart, isAuthenticated, 
+    getUserDetails, products, isAvilableCartItem,
+    cartTotalPrice, pushCartToalToFronEnd
+ } from "./main.js"
 
 
 window.addToCart = addToCart;
@@ -51,6 +54,7 @@ function displayCart(){
 
     let cartItems = isAvilableCartItem()
     // console.log(cartItems)
+    
     if (cartItems) {
         renderCartProducts(cartItems)
     } else {
@@ -62,20 +66,7 @@ function displayCart(){
 
 
 // check the cart item is avilable or not and then return cart
-function isAvilableCartItem(){
-    if (isAuthenticated) {
-        let userObject = getUserDetails()
-        if (userObject.cartItems) {
-            return userObject.cartItems
-        } else {
-            return false
-        }
-        
-    } else {
-        console.log("You need to login to see cart item")
-    
-    }
-}
+
 
 
 function genarateProductHTMLForCart(cartItems){
@@ -95,13 +86,13 @@ function genarateProductHTMLForCart(cartItems){
                                 
                                                 <!-- Quantity Control & Price -->
                                                 <div class="flex items-center space-x-4">
-                                                    <button onclick="increaseQuantity(${index})" class="text-gray-600 hover:text-gray-800">
+                                                    <button onclick="cartProductQuantityChange(${index}, 1)" class="text-gray-600 hover:text-gray-800">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                                                         </svg>
                                                     </button>
                                                     <p id="quantity-1" class="text-gray-900 font-medium">${item.quantity}</p>
-                                                    <button onclick="increaseQuantity(${index})" class="text-gray-600 hover:text-gray-800">
+                                                    <button onclick="cartProductQuantityChange(${index}, 0)" class="text-gray-600 hover:text-gray-800">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                             class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16" />
@@ -132,27 +123,31 @@ function genarateProductHTMLForCart(cartItems){
 
 function removeCartItem(id){
     if (isAuthenticated()) {
+
         let cartItems = isAvilableCartItem()
         cartItems.splice(id, 1)
         console.log("item remove successfully!")
+
         let userObject = getUserDetails()
         userObject.cartItems = cartItems;
-        localStorage.setItem("userDetails", JSON.stringify(userObject))
+        let cartTotal = cartTotalPrice(cartItems);
+        userObject.cartTotal = cartTotal
 
+        // renderCartProducts(userObject.cartItems)
+
+        localStorage.setItem("userDetails", JSON.stringify(userObject))
         
-        const displayProductSection = document.getElementById("cart-items")
+        
+
         if (cartItems.length != 0) {
-            console.log("item have in cart")
-            let productHtml = genarateProductHTMLForCart(cartItems)
-            displayProductSection.innerHTML = productHtml
+            renderCartProducts(userObject.cartItems)
         } else {
             console.log("cart empty")
+            const displayProductSection = document.getElementById("cart-items")
             displayProductSection.innerHTML = noDataAvilableHTML()
+            pushCartToalToFronEnd(0.00)
         }
 
-        
-
-        // displayProductSection.insertAdjacentHTML("beforeend", productHtml)
 
     }
 }
@@ -165,8 +160,10 @@ function renderCartProducts(cartItems){
     let productHtml = genarateProductHTMLForCart(cartItems)
     if (productHtml) {
         displayProductSection.innerHTML = productHtml
+        pushCartToalToFronEnd(cartTotalPrice(cartItems))
     } else{
         displayProductSection.innerHTML = noDataAvilableHTML()
+        // pushCartToalToFronEnd(0.00)
     } 
 }
 
@@ -197,17 +194,26 @@ function noDataAvilableHTML(){
 
 
 
-function increaseQuantity(index){
+function cartProductQuantityChange(index, value){
 
     let cartItems = isAvilableCartItem()
     if (cartItems) {
-        let quantity = cartItems[index].quantity 
-        quantity += 1
+
+        let quantity = cartItems[index].quantity
+        if (value === 1 && quantity <= 30) {
+            quantity += 1
+        } else if (value === 0 && quantity > 1){
+            quantity -= 1
+        } else {
+            console.log("Can not oder greter than 30 items and not less than i items")
+        }
         cartItems[index].quantity = quantity
         cartItems[index].cartPrice = parseFloat((quantity * (products[cartItems[index].productId]).price).toFixed(2))
         // console.log(cartItems[index].cartPrice)
         let userObject = getUserDetails()
         userObject.cartItems = cartItems
+        userObject.cartTotal = cartTotalPrice(cartItems)
+        console.log(userObject)
         localStorage.setItem("userDetails", JSON.stringify(userObject))
         console.log(cartItems, quantity)
         renderCartProducts(cartItems)
@@ -217,4 +223,4 @@ function increaseQuantity(index){
 
 
 window.removeCartItem = removeCartItem;
-window.increaseQuantity = increaseQuantity;
+window.cartProductQuantityChange = cartProductQuantityChange;
