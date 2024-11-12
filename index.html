@@ -56,6 +56,18 @@
 
 </section>
 
+<!-- Notification Component -->
+<div id="notification"
+    class="fixed top-4 right-4 hidden max-w-xs p-4 rounded-md shadow-md bg-opacity-95 text-white transition-all transform duration-300 ease-in-out">
+    <div class="flex items-center space-x-2">
+        <span id="notification-icon" class="w-6 h-6"></span>
+        <p id="notification-message" class="text-sm font-medium"></p>
+        <button onclick="hideNotification()"
+            class="ml-auto bg-transparent hover:bg-gray-200 hover:text-gray-800 rounded-full p-1">
+            ✕
+        </button>
+    </div>
+</div>
 
 
 <!--FOOTER GOES HERE-->

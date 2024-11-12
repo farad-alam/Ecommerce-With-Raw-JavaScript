@@ -1,6 +1,6 @@
 import {checkAuthentication, 
     userLogOut, userLogin, insertNavBar,
-    isAuthenticated, 
+    isAuthenticated, showNotification,
     getUserDetails, 
     handleSignUpSubmit,
     } from "./main.js"
@@ -15,4 +15,5 @@ window.userLogin = userLogin;
 window.isAuthenticated = isAuthenticated;
 window.getUserDetails = getUserDetails;
 window.handleSignUpSubmit = handleSignUpSubmit;
+window.showNotification = showNotification;
 

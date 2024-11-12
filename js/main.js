@@ -537,6 +537,7 @@ export function addToCart(id){
             userObject.cartItems.push(newCartProduct);
             userObject.cartTotal = cartTotalPrice(userObject.cartItems)
             console.log("New Item Added to the car")
+            showNotification("New Products Added to the cart", "info")
         } else {
             console.log("Item is already in the cart");
         }
@@ -615,5 +616,45 @@ export function pushCartToalToFronEnd(cartTotal){
     
 
 }
+
+// <!-- Notification JavaScript -->
+
+export function showNotification(message, type = "info") {
+    const notification = document.getElementById("notification");
+    const messageElement = document.getElementById("notification-message");
+    const iconElement = document.getElementById("notification-icon");
+
+    messageElement.textContent = message;
+
+    switch (type) {
+        case "success":
+            notification.className = "fixed top-4 right-4 max-w-xs p-4 rounded-md shadow-md bg-green-500 text-white transition-all transform duration-300 ease-in-out";
+            iconElement.innerHTML = "✔️";
+            break;
+        case "info":
+            notification.className = "fixed top-4 right-4 max-w-xs p-4 rounded-md shadow-md bg-blue-500 text-white transition-all transform duration-300 ease-in-out";
+            iconElement.innerHTML = "ℹ️";
+            break;
+        case "error":
+            notification.className = "fixed top-4 right-4 max-w-xs p-4 rounded-md shadow-md bg-red-500 text-white transition-all transform duration-300 ease-in-out";
+            iconElement.innerHTML = "⚠️";
+            break;
+    }
+
+    notification.classList.remove("hidden");
+    notification.classList.add("translate-y-0", "opacity-100");
+
+    setTimeout(() => {
+        hideNotification();
+    }, 3000);
+}
+
+function hideNotification() {
+    const notification = document.getElementById("notification");
+    notification.classList.remove("translate-y-0", "opacity-100");
+    notification.classList.add("hidden");
+}
+
+
 
 
